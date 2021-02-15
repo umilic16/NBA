@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using NBA.DataLayer;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NBA
@@ -228,11 +229,11 @@ namespace NBA
             g.Statistics.Add(new Stats
             {
                 PlayerID = p.Id.ToString(),
-                Points = nUDPoints.Value.ToString(),
-                Rebounds = nUDRebounds.Value.ToString(),
-                Assists = nUDAssists.Value.ToString(),
-                Blocks = nUDBlocks.Value.ToString(),
-                Steals = nUDSteals.Value.ToString()
+                Points = (int)nUDPoints.Value,
+                Rebounds = (int)nUDRebounds.Value,
+                Assists = (int)nUDAssists.Value,
+                Blocks = (int)nUDBlocks.Value,
+                Steals = (int)nUDSteals.Value
             });
             //update bazu
             var database = MongoCRUD.GetDB();
@@ -261,6 +262,55 @@ namespace NBA
             collection.ReplaceOne(x => x.Id == currentUser.Id, currentUser);
             //refresh prikaz liste
             RefreshFavorites();
+        }
+        //prikaz igraca u timu ako je kliknut tim prikaz statistike igraca ako je kliknut igrac
+        private void lbFavorites_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var database = MongoCRUD.GetDB();
+            //tim
+            if(cbFavorites.SelectedIndex==0)
+            {
+                var playerColl = database.GetCollection<Player>("Players");
+                Team t = (Team)lbFavorites.SelectedItem;
+                List<Player> players = playerColl.Find(x => x.TeamId == t.Id.ToString()).ToList();
+                string championships = "";
+                if (t.Championships != null)
+                    foreach (string c in t.Championships)
+                        championships += c + " Champions\n";
+                string roster = "";
+                foreach (Player p in players)
+                    roster += p.Name + "\n";
+                MessageBox.Show(t.Name + "\nHistory:\n" + championships + "Roster:\n" + roster);
+            }
+            //igrac
+            else
+            {
+                var gameColl = database.GetCollection<Game>("Games");
+                //kliknut igrac
+                Player p = (Player)lbFavorites.SelectedItem;
+                var teamColl = database.GetCollection<Team>("Teams");
+                //nadji team za koji igra
+                Team t = teamColl.Find(x => x.Id == MongoDB.Bson.ObjectId.Parse(p.TeamId)).FirstOrDefault();
+                string championships = "";
+                if (p.Championships != null)
+                    foreach (string c in p.Championships)
+                        championships += c + " Champion\n";
+                //nadji sve utakmice koje je odigrao igrac po timu za koji igra
+                List<Game> games = gameColl.Find(x => x.HomeTeam == t.Id.ToString() || x.AwayTeam == t.Id.ToString()).ToList();
+                //dodaj u listu svaku statistiku/rezultat za izabranog igraca i kreiraj string za prikaz
+                List<Stats> stats = new List<Stats>();
+                if (games != null)
+                    foreach (Game g in games)
+                        if (g.Statistics != null)
+                            stats.Add(g.Statistics.Find(x => x.PlayerID == p.Id.ToString()));
+                var pAvg = stats.Average(x => x.Points);
+                var rAvg = stats.Average(x => x.Rebounds);
+                var aAvg = stats.Average(x => x.Assists);
+                var sAvg = stats.Average(x => x.Steals);
+                var bAvg = stats.Average(x => x.Blocks);
+                string statString = "P: " + pAvg + " R: " + rAvg + " A: " + aAvg + " S: " + sAvg + " B: " + bAvg + "\n";
+                MessageBox.Show(p.Name + " (" + t.Name + ")\nChampionships:\n" + championships + "Stats:\n" + statString);
+            }
         }
     }
 }

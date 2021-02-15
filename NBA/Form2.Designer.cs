@@ -109,6 +109,7 @@ namespace NBA
             this.lbFavorites.Name = "lbFavorites";
             this.lbFavorites.Size = new System.Drawing.Size(165, 277);
             this.lbFavorites.TabIndex = 5;
+            this.lbFavorites.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbFavorites_MouseDoubleClick);
             // 
             // btnDeleteFav
             // 
