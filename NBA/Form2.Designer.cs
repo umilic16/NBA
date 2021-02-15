@@ -188,7 +188,7 @@ namespace NBA
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(286, 121);
+            this.label5.Location = new System.Drawing.Point(282, 121);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 30;
@@ -197,7 +197,7 @@ namespace NBA
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(286, 161);
+            this.label6.Location = new System.Drawing.Point(282, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 32;
@@ -309,14 +309,14 @@ namespace NBA
             // 
             // nUDAssists
             // 
-            this.nUDAssists.Location = new System.Drawing.Point(289, 137);
+            this.nUDAssists.Location = new System.Drawing.Point(285, 137);
             this.nUDAssists.Name = "nUDAssists";
             this.nUDAssists.Size = new System.Drawing.Size(53, 20);
             this.nUDAssists.TabIndex = 54;
             // 
             // nUDBlocks
             // 
-            this.nUDBlocks.Location = new System.Drawing.Point(289, 176);
+            this.nUDBlocks.Location = new System.Drawing.Point(285, 176);
             this.nUDBlocks.Name = "nUDBlocks";
             this.nUDBlocks.Size = new System.Drawing.Size(53, 20);
             this.nUDBlocks.TabIndex = 55;
