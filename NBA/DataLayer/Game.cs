@@ -1,9 +1,5 @@
 ﻿using MongoDB.Bson;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NBA.DataLayer
 {
@@ -18,7 +14,7 @@ namespace NBA.DataLayer
         //public List<Stats> Statistics { get; set; }
         //public Player MVP { get; set; }
         public List<ObjectId> Statistics { get; set; }
-        public ObjectId MVP { get; set; }
+        //public ObjectId MVP { get; set; }
         public string Date { get; set; }
     }
 }
