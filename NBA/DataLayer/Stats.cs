@@ -6,8 +6,8 @@ namespace NBA.DataLayer
     {
         public ObjectId Id { get; set; }
         //public Player Player { get; set; }
-        public ObjectId GameId { get; set; }
-        public ObjectId PlayerID { get; set; }
+        //public string GameId { get; set; }
+        public string PlayerID { get; set; }
         public string Points { get; set; }
         public string Rebounds { get; set; }
         public string Assists { get; set; }

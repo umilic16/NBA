@@ -10,7 +10,7 @@ namespace NBA.DataLayer
         public string Password { get; set; }
         //public List<Player> FavPlayers { get; set; }
         //public List<Team> FavTeams { get; set; }
-        public List<ObjectId> FavPlayers { get; set; }
-        public List<ObjectId> FavTeams { get; set; }
+        public List<string> FavPlayers { get; set; }
+        public List<string> FavTeams { get; set; }
     }
 }

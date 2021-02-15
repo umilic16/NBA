@@ -11,6 +11,7 @@ namespace NBA.DataLayer
         //public string Weight { get; set; }
         //public string Nationality { get; set; }
         //public Team CurrentTeam { get; set; }
-        public ObjectId TeamId { get; set; }
+        public string TeamId { get; set; }
+        public List<string> Championships { get; set; }
     }
 }
